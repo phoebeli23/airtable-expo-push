@@ -1,0 +1,26 @@
+{
+  "name": "airtable-expo-push",
+  "version": "1.0.0",
+  "description": "Script used to run scheduled jobs to check for new records and send to expo notification servers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/averyyip/airtable-expo-push.git"
+  },
+  "author": "Avery Yip",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/averyyip/airtable-expo-push/issues"
+  },
+  "homepage": "https://github.com/averyyip/airtable-expo-push#readme",
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "airtable": "^0.8.1",
+    "expo-server-sdk": "^3.4.0"
+  }
+}
