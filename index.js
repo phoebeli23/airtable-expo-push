@@ -65,3 +65,16 @@ class NotificationsManager {
   }
 }
 
+
+function messagesTemplate(record) {
+  return record.get('body');
+}
+
+const manager = new NotificationsManager();
+manager.addNotification({
+  table: "Messages", 
+  queryParams: {view: "main"},
+  recordTemplate: messagesTemplate,
+  tokenColumnName: 'recipientTokens',
+});
+manager.sendNotifications();
