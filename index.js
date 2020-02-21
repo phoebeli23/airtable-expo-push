@@ -63,6 +63,7 @@ class NotificationsManager {
         try {
           let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
           tickets.push(...ticketChunk);
+          console.log("Notification chunk sent");
           // NOTE: If a ticket contains an error code in ticket.details.error, you
           // must handle it appropriately. The error codes are listed in the Expo
           // documentation:
