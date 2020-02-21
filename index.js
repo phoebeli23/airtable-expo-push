@@ -31,8 +31,9 @@ class NotificationsManager {
     });
 
     return records.map((record) => {
+      console.log("\nCreating push message: ", record.get(settings.tokenColumnName).split());
       return {
-        to: record.get(settings.tokenColumnName),
+        to: record.get(settings.tokenColumnName).split(','),
         body: settings.recordTemplate(record),
         sound: 'default',
       };
@@ -63,7 +64,8 @@ class NotificationsManager {
         try {
           let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
           tickets.push(...ticketChunk);
-          console.log("Notification chunk sent");
+          console.log("\nNotification chunk sent");
+          console.log(tickets)
           // NOTE: If a ticket contains an error code in ticket.details.error, you
           // must handle it appropriately. The error codes are listed in the Expo
           // documentation:
