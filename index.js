@@ -31,6 +31,7 @@ class NotificationsManager {
     });
 
     return records.map((record) => {
+      console.log("Creating push message: ", record.get(settings.tokenColumnName));
       return {
         to: record.get(settings.tokenColumnName),
         body: settings.recordTemplate(record),
