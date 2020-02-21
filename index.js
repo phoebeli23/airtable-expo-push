@@ -4,6 +4,10 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
+const AirtableColumnEnum = Object.freeze({
+  timePosted: 'timePosted'
+});
+
 const expo = new Expo.Expo();
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID,
@@ -19,7 +23,13 @@ class NotificationsManager {
   }
 
   createPushMessages(records, settings) {
-    records = records.filter((record) => record.get(settings.tokenColumnName));
+    records = records.filter((record) => {
+      const currTime = record.get(AirtableColumnEnum.timePosted);
+      const diffInSeconds = (Date.now() - Date.parse(currTime)) / 1000;
+      const isNewRecord = diffInSeconds <= (process.env['SECONDS_INTERVAL'] | 0);
+      return record.get(settings.tokenColumnName) && isNewRecord;
+    });
+
     return records.map((record) => {
       return {
         to: record.get(settings.tokenColumnName),
@@ -64,7 +74,6 @@ class NotificationsManager {
     })();
   }
 }
-
 
 function messagesTemplate(record) {
   return record.get('body');
